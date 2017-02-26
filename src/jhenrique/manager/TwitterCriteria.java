@@ -1,4 +1,4 @@
-package me.jhenrique.manager;
+package jhenrique.manager;
 
 /**
  * A class to guide how the tweets must be searched on {@link TweetManager}

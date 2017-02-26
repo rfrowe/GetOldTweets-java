@@ -1,4 +1,4 @@
-package me.jhenrique.model;
+package jhenrique.model;
 
 import java.util.Date;
 

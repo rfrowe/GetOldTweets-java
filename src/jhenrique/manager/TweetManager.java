@@ -1,4 +1,4 @@
-package me.jhenrique.manager;
+package jhenrique.manager;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import me.jhenrique.model.Tweet;
+import jhenrique.model.Tweet;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;

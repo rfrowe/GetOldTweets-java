@@ -1,8 +1,8 @@
-package me.jhenrique.main;
+package jhenrique.main;
 
-import me.jhenrique.manager.TweetManager;
-import me.jhenrique.manager.TwitterCriteria;
-import me.jhenrique.model.Tweet;
+import jhenrique.manager.TweetManager;
+import jhenrique.manager.TwitterCriteria;
+import jhenrique.model.Tweet;
 
 public class Main {
 	private static final String USERNAME = "Username: ";
