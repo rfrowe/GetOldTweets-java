@@ -12,8 +12,6 @@ public class Yearly {
 
     public static void main(String[] args) throws IOException {
         Set<TweetFetcher> threads = new HashSet<>();
-        Set<Tweet> allTweets = new HashSet<>();
-
         String query = "muslim OR Islam";
 
         PrintStream ps = new PrintStream(new File("2015.tsv"));
@@ -40,11 +38,12 @@ public class Yearly {
                 ps.println(tf.getStartDate() + "\t" + tf.join());
             }
 
-            allTweets.addAll(tweets);
+            threads.clear();
+
+            Exporter.export("2015_raw.tsv", tweets, month != 1);
         }
 
-        Exporter.export("2015_raw.tsv", allTweets);
-        System.out.println(allTweets.size());
+        ps.close();
     }
 
     private static boolean validDay(int month, int day) {

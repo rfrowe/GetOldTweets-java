@@ -15,10 +15,16 @@ public class Exporter {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 	public static void export(String fileName, Set<Tweet> tweets) {
+		export(fileName, tweets, false);
+	}
+	public static void export(String fileName, Set<Tweet> tweets, boolean append) {
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-			bw.write("id\tusername\tdate\ttext\tsentiment\tretweets\tfavorites\tmentions\tgeo\tpermalink\thashtags");
-			bw.newLine();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, append));
+
+			if (!append) {
+				bw.write("id\tusername\tdate\ttext\tsentiment\tretweets\tfavorites\tmentions\tgeo\tpermalink\thashtags");
+				bw.newLine();
+			}
 
 			for (Tweet t : tweets) {
 				bw.write(String.format("%s\t%s\t%s\t%s\t%f\t%d\t%d\t%s\t%s\t%s\t%s",
