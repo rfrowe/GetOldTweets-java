@@ -9,8 +9,8 @@
         <module name="GetOldTweets-java" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="GetOldTweets-java" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="GetOldTweets-java" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
