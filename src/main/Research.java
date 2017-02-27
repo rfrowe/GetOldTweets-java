@@ -17,9 +17,8 @@ import java.util.*;
 
 public class Research {
     public static void main(String[] args) {
-        Analyzer analyzer = new Analyzer();
         TwitterCriteria criteria = TwitterCriteria.create()
-                                                 .setMaxTweets(10000)
+                                                 .setMaxTweets(1000)
                                                  .setQuerySearch("muslim OR Islam -ban")
                                                  .setEnglish(true)
                                                  .setFeedType(Feeds.LATEST)
@@ -34,14 +33,14 @@ public class Research {
         System.out.println(tweets.size());
         System.out.println();
 
-//        ParallelAnalyzer.analyze(tweets);
-//
-//        for (Tweet t : tweets) {
-//            sum += t.getSentiment();
-//        }
-//
-//        System.out.println(sum / tweets.size());
-//
-//        Exporter.export("data1.tsv", tweets);
+        ParallelAnalyzer.analyze(tweets);
+
+        for (Tweet t : tweets) {
+            sum += t.getSentiment();
+        }
+
+        System.out.println(sum / tweets.size());
+
+        Exporter.export("data1.tsv", tweets);
     }
 }
