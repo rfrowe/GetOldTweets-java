@@ -130,6 +130,8 @@ public class TweetManager {
                         break outerLace;
                     }
                 }
+
+                System.out.println("Fetched " + results.size() + " tweets");
             }
         } catch(Exception e) {
             e.printStackTrace();

@@ -42,6 +42,12 @@ public class Analyzer {
         return sentiScore;
     }
 
+    public static void main(String[] args) {
+        Analyzer a = new Analyzer();
+        SentiWordNet.getSingleton();
+        System.out.println(a.analyze("The Lying NYTimes is at it again! Don’t believe a word. Sad!"));
+    }
+
     private static String deHashtag(String hashtag) {
         StringBuilder str = new StringBuilder();
 

@@ -85,7 +85,7 @@ public class NLPParser {
     }
 
     public static void main(String[] args) {
-        String str = "The blue boat";
+        String str = "The Lying NYTimes is at it again! Don’t believe a word. Sad!";
         NLPParser parser = new NLPParser();
         Tree tree = parser.parseTree(str);
 
