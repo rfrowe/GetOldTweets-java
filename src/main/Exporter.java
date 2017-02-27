@@ -14,7 +14,7 @@ public class Exporter {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-	public static void export(String fileName, List<Tweet> tweets) {
+	public static void export(String fileName, Set<Tweet> tweets) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
 			bw.write("id\tusername\tdate\ttext\tsentiment\tretweets\tfavorites\tmentions\tgeo\tpermalink\thashtags");

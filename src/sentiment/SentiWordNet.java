@@ -19,7 +19,11 @@ public class SentiWordNet {
     public static SentiWordNet getSingleton() {
         try {
             if(SINGLETON == null) {
-                SINGLETON = new SentiWordNet();
+                synchronized (SentiWordNet.class) {
+                    if (SINGLETON == null) {
+                        SINGLETON = new SentiWordNet();
+                    }
+                }
             }
 
             return SINGLETON;

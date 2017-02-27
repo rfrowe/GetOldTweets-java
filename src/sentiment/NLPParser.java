@@ -23,7 +23,11 @@ public class NLPParser {
 
     public static NLPParser getSingleton() {
         if(SINGLETON == null) {
-            SINGLETON = new NLPParser();
+            synchronized (NLPParser.class) {
+                if (SINGLETON == null) {
+                    SINGLETON = new NLPParser();
+                }
+            }
         }
 
         return SINGLETON;
@@ -56,19 +60,24 @@ public class NLPParser {
 
             POS pos = null;
 
-            switch(parent.label().value().charAt(0)) {
-                case 'J':
-                    pos = POS.ADJECTIVE;
-                    break;
-                case 'V':
-                    pos = POS.VERB;
-                    break;
-                case 'N':
-                    pos = POS.NOUN;
-                    break;
-                case 'R':
-                    pos = POS.ADVERB;
+            try {
+                switch(parent.label().value().charAt(0)) {
+                    case 'J':
+                        pos = POS.ADJECTIVE;
+                        break;
+                    case 'V':
+                        pos = POS.VERB;
+                        break;
+                    case 'N':
+                        pos = POS.NOUN;
+                        break;
+                    case 'R':
+                        pos = POS.ADVERB;
+                }
+            } catch (NullPointerException e) {
+                // Do nothing
             }
+
             words.add(new SentiWord(leaf.label().value(), pos));
         }
 

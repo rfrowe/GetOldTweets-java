@@ -14,8 +14,9 @@ import java.util.concurrent.*;
 public class ParallelAnalyzer {
     private static final ForkJoinPool POOL = new ForkJoinPool();
 
-    public static void analyze(List<Tweet> tweets) {
-        POOL.invoke(new AnalyzeAction(new Analyzer(), tweets, 0, tweets.size()));
+    public static void analyze(Set<Tweet> tweets) {
+        List<Tweet> list = new ArrayList<>(tweets);
+        POOL.invoke(new AnalyzeAction(new Analyzer(), list, 0, tweets.size()));
     }
 
     private static class AnalyzeAction extends RecursiveAction {

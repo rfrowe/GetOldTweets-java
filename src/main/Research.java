@@ -19,15 +19,15 @@ public class Research {
     public static void main(String[] args) {
         Analyzer analyzer = new Analyzer();
         TwitterCriteria criteria = TwitterCriteria.create()
-                                                 .setMaxTweets(5)
+                                                 .setMaxTweets(500)
                                                  .setQuerySearch("muslim OR Islam -ban")
                                                  .setEnglish(true)
-                                                 .setFeedType(Feeds.TOP)
+                                                 .setFeedType(Feeds.LATEST)
                                                  .setSince("2017-02-01")
                                                  .setUntil("2017-02-26")
                                                  .setGeocode("39.8,-95.583068847656," + "2500km");
 
-        List<Tweet> tweets = TweetManager.getTweets(criteria);
+        Set<Tweet> tweets = TweetManager.getTweets(criteria);
 
         double sum = 0.0;
 
@@ -37,7 +37,7 @@ public class Research {
         ParallelAnalyzer.analyze(tweets);
 
         for (Tweet t : tweets) {
-            sum += analyzer.analyze(t);
+            sum += t.getSentiment();
         }
 
         System.out.println(sum / tweets.size());

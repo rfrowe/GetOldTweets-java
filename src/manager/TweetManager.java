@@ -1,9 +1,7 @@
 package manager;
 
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -77,8 +75,8 @@ public class TweetManager {
      * @param criteria An object of the class {@link TwitterCriteria} to indicate how tweets must be searched
      * @return A list of all tweets found
      */
-    public static List<Tweet> getTweets(TwitterCriteria criteria) {
-        List<Tweet> results = new ArrayList<Tweet>();
+    public static Set<Tweet> getTweets(TwitterCriteria criteria) {
+        Set<Tweet> results = new HashSet<>();
 
         try {
             String refreshCursor = null;
