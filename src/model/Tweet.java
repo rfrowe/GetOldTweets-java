@@ -18,6 +18,7 @@ public class Tweet {
 	private String mentions;
 	private String hashtags;
 	private String geo;
+	private double sentiment;
 
 	public String getId() {
 		return id;
@@ -99,6 +100,14 @@ public class Tweet {
 		this.geo = geo;
 	}
 
+	public double getSentiment() {
+		return sentiment;
+	}
+
+	public void setSentiment(double sentiment) {
+		this.sentiment = sentiment;
+	}
+
 	@Override
 	public String toString() {
 		return "Tweet{" +
@@ -112,6 +121,7 @@ public class Tweet {
 		       ", mentions='" + mentions + '\'' +
 		       ", hashtags='" + hashtags + '\'' +
 		       ", geo='" + geo + '\'' +
+		       ", sentiment=" + sentiment +
 		       '}';
 	}
 }

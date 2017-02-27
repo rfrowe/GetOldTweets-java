@@ -24,7 +24,8 @@ public class Analyzer {
         text = deHashtag(text);
         text = text.trim();
 
-        return analyze(text);
+        tweet.setSentiment(analyze(text));
+        return tweet.getSentiment();
     }
 
     public double analyze(String text) {

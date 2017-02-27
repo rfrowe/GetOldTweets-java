@@ -19,7 +19,7 @@ public class Research {
     public static void main(String[] args) {
         Analyzer analyzer = new Analyzer();
         TwitterCriteria criteria = TwitterCriteria.create()
-                                                 .setMaxTweets(100)
+                                                 .setMaxTweets(5)
                                                  .setQuerySearch("muslim OR Islam -ban")
                                                  .setEnglish(true)
                                                  .setFeedType(Feeds.TOP)
@@ -34,23 +34,14 @@ public class Research {
         System.out.println(tweets.size());
         System.out.println();
 
-//        int i = 0;
-//                for (Tweet t : tweets) {
-//                    sum += analyzer.analyze(t);
-//                    System.out.println(++i);
-//                }
-//
-//                System.out.println(sum / tweets.size());
+        ParallelAnalyzer.analyze(tweets);
 
-        Map<Tweet, Double> map = ParallelAnalyzer.analyze(tweets);
-
-        for (Map.Entry<Tweet, Double> e : map.entrySet()) {
-            System.out.println(e.getKey());
-            sum += e.getValue();
-            System.out.println(e.getValue());
-            System.out.println();
+        for (Tweet t : tweets) {
+            sum += analyzer.analyze(t);
         }
 
         System.out.println(sum / tweets.size());
+
+        Exporter.export("data1.tsv", tweets);
     }
 }
