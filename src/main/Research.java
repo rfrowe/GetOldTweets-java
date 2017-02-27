@@ -1,46 +1,41 @@
 package main;
 
-import manager.TweetManager;
-import manager.TwitterCriteria;
-import model.Feeds;
-import model.Tweet;
-import sentiment.Analyzer;
-import sentiment.ParallelAnalyzer;
-
 import java.util.*;
-
-/**
- * Description
- *
- * @author Ryan
- */
+import model.*;
+import java.io.*;
+import java.util.concurrent.*;
 
 public class Research {
-    public static void main(String[] args) {
-        TwitterCriteria criteria = TwitterCriteria.create()
-                                                 .setMaxTweets(1000)
-                                                 .setQuerySearch("muslim OR Islam -ban")
-                                                 .setEnglish(true)
-                                                 .setFeedType(Feeds.LATEST)
-                                                 .setSince("2017-02-01")
-                                                 .setUntil("2017-02-26")
-                                                 .setGeocode("39.8,-95.583068847656," + "2500km");
+    private static final int TWEETS_PER_DAY = 1000;
+    private static final ForkJoinPool POOL = new ForkJoinPool();
 
-        Set<Tweet> tweets = TweetManager.getTweets(criteria);
+    public static void main(String[] args) throws IOException {
+        Set<Tweet> tweets = new HashSet<>();
+        Set<TweetFetcher> threads = new HashSet<>();
 
-        double sum = 0.0;
+        String query = "Islam OR muslim";
 
-        System.out.println(tweets.size());
-        System.out.println();
+        //for (int day = 21; day < 31; day++) {
+            String date = "2015-11";
 
-        ParallelAnalyzer.analyze(tweets);
+            //String startDate = date + "-" + (day < 10 ? "0" : "") + day;
+            //String endDate = date + "-" + (day + 1 < 10 ? "0" : "") + (day + 1);
+            String startDate = "2015-11-30";
+            String endDate = "2015-12-01";
+            TweetFetcher tf = new TweetFetcher(startDate, endDate, TWEETS_PER_DAY, query, tweets);
 
-        for (Tweet t : tweets) {
-            sum += t.getSentiment();
+            threads.add(tf);
+
+            POOL.execute(tf);
+        //}
+
+        try (PrintStream ps = new PrintStream(new File("san_bernardino.tsv"))) {
+            for (TweetFetcher tf2 : threads) {
+                ps.println(tf2.getStartDate() + "\t" + tf2.join());
+            }
         }
 
-        System.out.println(sum / tweets.size());
-
-        Exporter.export("data1.tsv", tweets);
+        Exporter.export("san_bernardino_raw.tsv", tweets);
+        System.out.println(tweets.size());
     }
 }

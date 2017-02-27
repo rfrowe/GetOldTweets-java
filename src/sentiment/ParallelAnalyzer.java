@@ -14,12 +14,16 @@ import java.util.concurrent.*;
 public class ParallelAnalyzer {
     private static final ForkJoinPool POOL = new ForkJoinPool();
 
-    public static void analyze(Set<Tweet> tweets) {
+    public static double analyze(Set<Tweet> tweets) {
         List<Tweet> list = new ArrayList<>(tweets);
-        POOL.invoke(new AnalyzeAction(new Analyzer(), list, 0, tweets.size()));
+        return analyze(list, 0, list.size());
     }
 
-    private static class AnalyzeAction extends RecursiveAction {
+    public static double analyze(List<Tweet> list, int lo, int hi) {
+        return POOL.invoke(new AnalyzeAction(new Analyzer(), list, lo, hi)) / (hi - lo);
+    }
+
+    private static class AnalyzeAction extends RecursiveTask<Double> {
         private final Analyzer analyzer;
         private final List<Tweet> tweets;
         private final int lo, hi;
@@ -36,11 +40,17 @@ public class ParallelAnalyzer {
          * The main computation performed by this task.
          */
         @Override
-        protected void compute() {
+        protected Double compute() {
             if (hi - lo <= CUTOFF) {
+                double sum = 0.0;
+
                 for (int i = lo; i < hi; i++) {
-                    tweets.get(i).setSentiment(analyzer.analyze(tweets.get(i)));
+                    double sentiment = analyzer.analyze(tweets.get(i));
+                    tweets.get(i).setSentiment(sentiment);
+                    sum += sentiment;
                 }
+
+                return sum;
             } else {
                 int mid = lo + (hi - lo) / 2;
 
@@ -48,8 +58,9 @@ public class ParallelAnalyzer {
                 AnalyzeAction right = new AnalyzeAction(analyzer, tweets, mid, hi);
                 right.fork();
 
-                left.compute();
-                right.join();
+                double leftSum = left.compute();
+
+                return right.join() + leftSum;
             }
         }
     }
