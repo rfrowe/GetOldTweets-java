@@ -15,3 +15,7 @@ This program then analyzes the tweets for sentiment by first running them throug
 CoreNLP parser (please make sure the English components are installed at 
 `edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz`). Then SentiWordNet 3.0.0 is used to assign sentiment to all 
 word in the tweet.
+
+## Findings 
+Please see the `data` directory for my data (raw tweets were excluded as the files total around 600MiB) along with 
+paper and presentation.

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GetOldTweets-java.iml" filepath="$PROJECT_DIR$/GetOldTweets-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tweetomatic.iml" filepath="$PROJECT_DIR$/Tweetomatic.iml" />
     </modules>
   </component>
 </project>
