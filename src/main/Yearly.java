@@ -7,14 +7,20 @@ import java.util.concurrent.*;
 
 public class Yearly {
     private static final int TWEETS_PER_DAY = 1000;
-    private static final int YEAR = 2015;
     private static final ForkJoinPool POOL = new ForkJoinPool();
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 1) {
+            System.out.println("Please pass a year as an argument");
+            return;
+        }
+
+        int year = Integer.valueOf(args[0]);
+
         Set<TweetFetcher> threads = new HashSet<>();
         String query = "muslim OR Islam";
 
-        PrintStream ps = new PrintStream(new File("2015.tsv"));
+        PrintStream ps = new PrintStream(new File(year + ".tsv"));
 
         for (int month = 1; month <= 12; month++) {
             Set<Tweet> tweets = new HashSet<>();
@@ -24,8 +30,8 @@ public class Yearly {
                     break;
                 }
 
-                String startDate = YEAR + "-" + month + "-" + day;
-                String endDate = YEAR + "-" + month + "-" + (day + 1);
+                String startDate = year + "-" + month + "-" + day;
+                String endDate = year + "-" + month + "-" + (day + 1);
 
                 TweetFetcher tf = new TweetFetcher(startDate, endDate, TWEETS_PER_DAY, query, tweets);
 
@@ -40,7 +46,7 @@ public class Yearly {
 
             threads.clear();
 
-            Exporter.export("2015_raw.tsv", tweets, month != 1);
+            Exporter.export(year + "_raw.tsv", tweets, month != 1);
         }
 
         ps.close();
