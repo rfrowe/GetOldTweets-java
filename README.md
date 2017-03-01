@@ -1,6 +1,6 @@
-# Get Old Tweets Programatically
-A project written in Java to get old tweets, it bypass some limitations of Twitter Official API including allowing me
- to get over 2 million tweets in 3 days.
+# Fetch Tweets using Workaround API and Analyze for Sentiment
+A project written , it bypass some limitations of Twitter Official API including allowing me to get over 2 million 
+tweets in 3 days and analyzing all of them, thanks to about 64 cores.
 
 ## Details
 Twitter Official API has the bother limitation of time constraints, you can't get older tweets than a week. Some tools
